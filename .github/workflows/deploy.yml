@@ -22,7 +22,7 @@ jobs:
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Get this from Vercel settings
-          vercel-org-id: ${{ team_o3oijnU4rn2r1vqZQNuJmrz8 }} # Get this from Vercel project settings
-          vercel-project-id: ${{prj_sI06IOtVVGOKOHjdROv4MjZDQskO}}
+          vercel-org-id: ${{ secrets.ORG_ID }} # Get this from Vercel project settings
+          vercel-project-id: ${{ secrets.PROJECT_ID }} # Get this from Vercel project settings
           working-directory: ./release/wwwroot
           vercel-args: "--prod"
