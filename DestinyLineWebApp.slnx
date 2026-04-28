@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DestinyLineWebApp/DestinyLineWebApp.Client/DestinyLineWebApp.Client.csproj" />
+  <Project Path="DestinyLineWebApp/DestinyLineWebApp/DestinyLineWebApp.csproj" />
+</Solution>

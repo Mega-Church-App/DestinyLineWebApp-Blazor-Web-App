@@ -1,0 +1,257 @@
+﻿@page "/register"
+@using DestinyLineWebApp.Client.Models
+@using DestinyLineWebApp.Client.Services
+@using static DestinyLineWebApp.Client.Models.MemberRecord
+
+@inject IMemberService MemberService
+
+<div class="container" style="max-width: 700px; padding: 20px; font-family: sans-serif; background-color: #F5F6FA;">
+    
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h2 style="color: goldenrod; font-weight: bold; margin-bottom: 5px;">DESTINYLINE GLOBAL MINISTRY</h2>
+        <p style="color: #7F8C8D; font-style: italic; margin-bottom: 5px;">(Membership Form)</p>
+        <p style="color: #34495E; font-size: 12px;">If you have an interest in becoming a member of this ministry, please complete this form. Thank you.</p>
+        
+        <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 10px;">
+            <label style="font-weight: bold;">Date:</label>
+            <input type="date" class="form-control" style="width: auto;" @bind="MemberDetails.personalDetails.DateJoined" />
+        </div>
+    </div>
+
+    @if (ShowSuccessMessage)
+    {
+        <div style="background-color: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: bold;">
+            Member successfully saved!
+        </div>
+    }
+
+    <div style="background-color: white; border: 1px solid #BDC3C7; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+        <h4 style="font-weight: bold; text-decoration: underline; margin-bottom: 15px;">PERSONAL INFORMATION</h4>
+        
+        <label>First Name</label>
+        <input type="text" class="form-control" placeholder="Kwame" @bind="MemberDetails.personalDetails.FirstName" style="margin-bottom: 10px;" />
+
+        <label>Middle Name</label>
+        <input type="text" class="form-control" placeholder="Naizer" @bind="MemberDetails.personalDetails.MiddleName" style="margin-bottom: 10px;" />
+
+        <label>Last Name</label>
+        <input type="text" class="form-control" placeholder="Nkrumah" @bind="MemberDetails.personalDetails.LastName" style="margin-bottom: 15px;" />
+
+        <label>Gender</label>
+        <select class="form-select" @bind="MemberDetails.personalDetails.Gender" style="margin-bottom: 15px;">
+            <option value="">-- Select --</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <label>Date of Birth:</label>
+        <input type="date" class="form-control" @bind="MemberDetails.personalDetails.DateOfBirth" style="margin-bottom: 15px;" />
+        <label>
+            Nationality
+            <input type="text" class="form-control" placeholder="Ghanaian" @bind="MemberDetails.personalDetails.Nationality" style="margin-bottom: 15px;" />
+        </label>
+        <label>
+            Marital Status
+            <select class="form-select" @bind="MemberDetails.personalDetails.MaritalStatus" style="margin-bottom: 15px;">
+                <option value="">-- Select --</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Divorced">Divorced</option>
+                <option value="Widowed">Widowed</option>
+            </select>
+        </label>
+        <label>
+            No of children
+            <input type="number" class="form-control" placeholder="3" @bind="MemberDetails.personalDetails.NoOfChildren" style="margin-bottom: 15px;" />
+        </label>
+        <label>
+            Occupation
+            <input type="text" class="form-control" placeholder="Bank Manager" @bind="MemberDetails.personalDetails.Occupation" style="margin-bottom: 15px;" />
+        </label>
+
+        <label>
+            Are you a student?
+            <select class="form-select" @bind="MemberDetails.personalDetails.StudentStatus" style="margin-bottom: 15px;">
+                <option value="">-- Select --</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </label>
+        <label>
+            If yes, which school?
+            <input type="text" class="form-control" placeholder="University of Ghana, Legon" @bind="MemberDetails.personalDetails.SchoolStatus" style="margin-bottom: 20px;" />
+        </label>
+
+        <h5 style="font-weight: bold;">Residence Details</h5>
+        <label>
+            Where do you live? (City/Town)
+            <input type="text" class="form-control" placeholder="Kwabenya" @bind="MemberDetails.contactInfo.Location" style="margin-bottom: 10px;" />
+        </label>
+        <label>
+            Street Name
+            <input type="text" class="form-control" placeholder="Volco main street, GH-1234-5678" @bind="MemberDetails.contactInfo.StreetName" style="margin-bottom: 10px;" />
+        </label>
+        <label>
+            House No.
+            <input type="text" class="form-control" placeholder="GA-1234-5678" @bind="MemberDetails.personalDetails.HouseNumber" style="margin-bottom: 10px;" />
+        </label>
+    </div>
+
+    <div style="background-color: white; border: 1px solid #BDC3C7; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+        <h4 style="font-weight: bold; text-decoration: underline; margin-bottom: 15px;">CONTACT INFORMATION</h4>
+        <label>
+            Telephone number
+            <input type="tel" class="form-control" placeholder="0123456789" @bind="MemberDetails.contactInfo.Phone" style="margin-bottom: 10px;" />
+        </label>
+        <label>
+            Email
+            <input type="email" class="form-control" placeholder="example@email.com" @bind="MemberDetails.contactInfo.Email" style="margin-bottom: 10px;" />
+        </label>
+        <label>
+            Postal Address
+            <input type="text" class="form-control" placeholder="02330" @bind="MemberDetails.contactInfo.PostalAddress" style="margin-bottom: 10px;" />
+        </label>
+    </div>
+
+    <div style="background-color: white; border: 1px solid #BDC3C7; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+        <h4 style="font-weight: bold; text-decoration: underline; margin-bottom: 15px;">EMERGENCY CONTACT</h4>
+        <label>
+            Who do we call in case of an emergency?
+            <input type="text" class="form-control" placeholder="Corlenius" @bind="MemberDetails.emergencyContactInfo.EmergencyContactName" style="margin-bottom: 10px;" />
+        </label>
+        <label>
+            Relationship to correspondence
+            <input type="text" class="form-control" placeholder="Father" @bind="MemberDetails.emergencyContactInfo.EmergencyContactRelationship" style="margin-bottom: 10px;" />
+        </label>
+        <label>
+            Telephone number
+            <input type="tel" class="form-control" placeholder="0123456789" @bind="MemberDetails.emergencyContactInfo.EmergencyContactPhone" style="margin-bottom: 10px;" />
+        </label>
+    </div>
+
+    <div style="background-color: white; border: 1px solid #BDC3C7; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+        <h4 style="font-weight: bold; text-decoration: underline; margin-bottom: 15px;">CHURCH BACKGROUND INFORMATION</h4>
+        <label>
+            Which Church did you previously attend?
+            <input type="text" class="form-control" placeholder="Assemblies of God" @bind="MemberDetails.churchBackground.PreviousChurchName" style="margin-bottom: 10px;" />
+        </label>
+        <label>
+            Location
+            <input type="text" class="form-control" placeholder="Kasoa/Kakraba Down" @bind="MemberDetails.churchBackground.PreviousChurchLocation" style="margin-bottom: 10px;" />
+        </label>
+        <label>
+            What is the name of the Head-Pastor
+            <input type="text" class="form-control" placeholder="eg. Pastor..." @bind="MemberDetails.churchBackground.PreviousChurchHeadPastor" style="margin-bottom: 10px;" />
+        </label>
+        <label>
+            What role did you play?
+            <input type="text" class="form-control" placeholder="I worked as a coordinator during evangelism" @bind="MemberDetails.churchBackground.PreviousRole" style="margin-bottom: 10px;" />
+        </label>
+        <label>
+            What was your reason for leaving?
+            <input type="text" class="form-control" placeholder="I moved to a new location to live" @bind="MemberDetails.churchBackground.ReasonForLeaving" style="margin-bottom: 10px;" />
+        </label>
+    </div>
+
+    <div style="background-color: white; border: 1px solid #BDC3C7; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+        <h4 style="font-weight: bold; text-decoration: underline; margin-bottom: 15px;">BAPTISM RECORD</h4>
+        
+        <label>
+            Have you been baptized before?
+            <select class="form-select" @bind="MemberDetails.baptismInfo.IsBaptized" style="margin-bottom: 10px;">
+                <option value="">-- Select --</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </label>
+        <label>
+            If Yes, What church?
+            <input type="text" class="form-control" placeholder="Light House Chapel" @bind="MemberDetails.baptismInfo.Church" style="margin-bottom: 10px;" />
+        </label>
+        <label>
+            Which year were you baptized?
+            <input type="number" class="form-control" placeholder="2000" maxlength="4" @bind="MemberDetails.baptismInfo.Year" style="margin-bottom: 10px;" />
+        </label>
+        <label>
+            If no, do you wish to be baptized?
+            <select class="form-select" @bind="MemberDetails.baptismInfo.Baptize" style="margin-bottom: 10px;">
+                <option value="">-- Select --</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </label>
+    </div>
+
+    <div style="background-color: white; border: 1px solid #BDC3C7; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+        <h4 style="font-weight: bold; text-decoration: underline; margin-bottom: 15px;">OTHER INFORMATION</h4>
+        
+        <label>
+            Are you a member of any department?
+            <select class="form-select" @bind="MemberDetails.departmentInfo.IsDepartmentMember" style="margin-bottom: 10px;">
+                <option value="">-- Select --</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </label>
+        <label>
+            If yes, which department(s)?
+            <input type="text" class="form-control" placeholder="Media, Welfare, Evangelism" @bind="MemberDetails.departmentInfo.DepartmentName" style="margin-bottom: 20px;" />
+        </label>
+        <label style="font-weight: bold;">
+            If No, which department(s) do you want to join?
+            <p style="font-size: 12px; color: gray; margin-bottom: 5px;">(Welfare, Music, Drama, Organizing, Prayer, Discipleship, Evangelism, Call center, Media)</p>
+        
+            <select class="form-select" @bind="MemberDetails.departmentInfo.InterestedDepartments" style="margin-bottom: 10px;">
+                <option value="">-- Select a Department to Join --</option>
+                <option value="Call center">Call center</option>
+                <option value="Choir - Music">Choir - Music</option>
+                <option value="Destiny Stars - Drama">Destiny Stars - Drama</option>
+                <option value="Evangelism">Evangelism</option>
+                <option value="Media">Media</option>
+                <option value="Organizing">Organizing</option>
+                <option value="Prayer">Prayer</option>
+                <option value="Welfare">Welfare</option>
+            </select>
+        </label>
+    </div>
+
+    <button @onclick="SaveToFirebase" style="width: 100%; padding: 15px; background-color: #2980B9; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; margin-bottom: 40px;">
+        Save Member Details
+    </button>
+
+</div>
+
+@code {
+    // Variable renamed to exactly match your XAML bindings
+    private Member MemberDetails = new Member();
+    private bool ShowSuccessMessage = false;
+
+    protected override void OnInitialized()
+    {
+        InitializeBlankMember();
+    }
+
+    private async Task SaveToFirebase()
+    {
+        int result = await MemberService.AddMember(MemberDetails);
+
+        if (result == 1)
+        {
+            ShowSuccessMessage = true;
+            InitializeBlankMember();
+        }
+    }
+
+    private void InitializeBlankMember()
+    {
+        MemberDetails = new Member()
+        {
+            personalDetails = new PersonalDetails(),
+            contactInfo = new ContactInfo(),
+            departmentInfo = new DepartmentInfo(),
+            emergencyContactInfo = new EmergencyContactInfo(),
+            churchBackground = new ChurchBackground(),
+            baptismInfo = new BaptismInfo()
+        };
+    }
+}

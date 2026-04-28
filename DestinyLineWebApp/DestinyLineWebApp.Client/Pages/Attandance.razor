@@ -1,0 +1,162 @@
+﻿@page "/"
+@using DestinyLineWebApp.Client.Models
+@using DestinyLineWebApp.Client.Services
+
+@inject IMemberService MemberService
+
+@* <PageTitle>Service Attendance</PageTitle>
+
+<style>
+    .toast {
+        visibility: hidden; min-width: 250px; background-color: #333; color: #fff;
+        text-align: center; border-radius: 5px; padding: 16px; position: fixed;
+        z-index: 1; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 17px;
+    }
+    .toast.show { visibility: visible; -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+    .toast.error { background-color: #e74c3c; }
+    .toast.flashy { background-color: #f1c40f; color: #2c3e50; font-weight: bold; }
+    .first-timer-row { background-color: #fff9c4; }
+    @-webkit-keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+    @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+</style> *@
+
+<nav style="background-color: #2980B9; color: white; padding: 1rem; text-align: center;">
+    <h1>Service Attendance (@(Attendees?.Count ?? 0))</h1>
+</nav>
+
+<main style="padding: 20px;">
+    <div class="toast @(IsToastVisible ? "show" : "") @(ToastClass)">
+        @((MarkupString)ToastMessage)
+    </div>
+
+    <section class="form-section" style="max-width: 500px; margin: 0 auto 30px auto; background: #f9f9f9; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+        <EditForm Model="@CurrentAttendee" OnValidSubmit="HandleSubmit">
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div>
+                    <label>FullName:</label>
+                    <InputText @bind-Value="CurrentAttendee.FullName" class="form-control" placeholder="Daniel David" required />
+                </div>
+
+                <div>
+                    <label>Phone Number:</label>
+                    <InputText @bind-Value="CurrentAttendee.Phone" class="form-control" placeholder="0123456789" required />
+                </div>
+
+                <div>
+                    <label>Location:</label>
+                    <InputText @bind-Value="CurrentAttendee.Location" class="form-control" placeholder="Lapaz" required />
+                </div>
+
+                <div class="button-container">
+                    <button type="submit" style="width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                        SAVE INPUT
+                    </button>
+                </div>
+            </div>
+        </EditForm>
+    </section>
+
+    <section class="list-section">
+        <table class="table" style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background-color: #ecf0f1;">
+                    <th style="padding: 10px; border: 1px solid #ddd;">Full Name</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Phone Number</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Attendees != null)
+                {
+                    @foreach (var entry in Attendees)
+                    {
+                        <tr class="@(entry.IsFirstTimer ? "first-timer-row" : "")">
+                            <td style="padding: 10px; border: 1px solid #ddd;"><strong>@entry.FullName</strong></td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">@entry.Phone</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">@entry.Location</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </section>
+</main>
+
+@code {
+    private Attendee CurrentAttendee = new Attendee();
+    private List<Attendee> Attendees = new List<Attendee>();
+    
+    // Toast Variables
+    private bool IsToastVisible = false;
+    private string ToastMessage = "";
+    private string ToastClass = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Subscribe to live updates if your service supports it, 
+        // or fetch current attendance list
+        await LoadAttendees();
+    }
+
+    private async Task LoadAttendees()
+    {
+        Attendees = await MemberService.GetAttendanceList();
+    }
+
+    private async Task HandleSubmit()
+    {
+        // 1. Check for Duplicates (Logic from your JS)
+        if (Attendees.Any(a => a.Phone == CurrentAttendee.Phone))
+        {
+            ShowToast("This phone number has already checked in!", "error");
+            return;
+        }
+
+        // 2. Check Member Status & Save (Logic from your JS)
+        bool existsAsMember = await MemberService.CheckIfMemberExists(CurrentAttendee.Phone);
+        
+        CurrentAttendee.Timestamp = DateTime.Now;
+        
+        if (existsAsMember)
+        {
+            CurrentAttendee.IsFirstTimer = false;
+            await MemberService.SaveAttendance(CurrentAttendee);
+            ShowToast($"Welcome to <span>DestinyLine</span>, {CurrentAttendee.FullName}🎉!");
+        }
+        else
+        {
+            CurrentAttendee.IsFirstTimer = true;
+            await MemberService.SaveAttendance(CurrentAttendee);
+            // In your JS logic, first timers are also marked as members
+            await MemberService.MarkAsMember(CurrentAttendee.Phone);
+            ShowToast($"🥳🙌🎉Welcome to <span>DestinyLine</span>, {CurrentAttendee.FullName}🥳🙌🎉!", "flashy");
+        }
+
+        // 3. Reset and Refresh
+        CurrentAttendee = new Attendee();
+        await LoadAttendees();
+    }
+
+    private void ShowToast(string message, string cssClass = "")
+    {
+        ToastMessage = message;
+        ToastClass = cssClass;
+        IsToastVisible = true;
+        
+        // Hide toast after 3 seconds
+        Task.Delay(3000).ContinueWith(_ => {
+            IsToastVisible = false;
+            InvokeAsync(StateHasChanged);
+        });
+    }
+
+    // Explicit Model for this page
+    public class Attendee
+    {
+        public string FullName { get; set; } = "";
+        public string Phone { get; set; } = "";
+        public string Location { get; set; } = "";
+        public DateTime Timestamp { get; set; }
+        public bool IsFirstTimer { get; set; }
+    }
+}
