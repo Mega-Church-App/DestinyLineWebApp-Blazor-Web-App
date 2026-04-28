@@ -1,9 +1,11 @@
 {
   "routes": [
-    [
-      {
-        "hanle": "firestem"
-          {"src":  "{/*.}, dest {Ddecy"}
-      }
-    ]
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
 }
