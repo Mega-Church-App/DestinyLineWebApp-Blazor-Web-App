@@ -16,7 +16,7 @@ jobs:
 
       - name: Publish Client Project
         # This compiles your C# into static WebAssembly files
-        run: dotnet publish DestinyLineWebApp.Client/DestinyLineWebApp.Client.csproj -c Release -o release
+        run: dotnet publish DestinyLineWebApp/DestinyLineWebApp.Client/DestinyLineWebApp.Client.csproj -c Release -o release
 
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
