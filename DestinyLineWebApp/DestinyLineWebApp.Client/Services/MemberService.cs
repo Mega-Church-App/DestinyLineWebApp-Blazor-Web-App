@@ -88,14 +88,14 @@ namespace DestinyLineWebApp.Client.Services
             catch (Exception) { return 0; }
         }
 
-        public async Task SaveAttendance(Attandance.Attendee attendee)
+        public async Task SaveAttendance(Attendee attendee)
         {
             await _firebaseClient
                 .Child("attendees")
                 .PostAsync(attendee);
         }
 
-        public async Task<List<Attandance.Attendee>> GetAttendanceList()
+        public async Task<List<Attendee>> GetAttendanceList()
         {
             var data = await _firebaseClient
                 .Child("attendees")
@@ -124,10 +124,8 @@ namespace DestinyLineWebApp.Client.Services
 
         public async Task MarkAsMember(string phone)
         {
-            // If they aren't a member but attended, your JS logic marks them for follow-up
-            // You can save this to a 'Prospects' or 'NewRegistrations' node
             await _firebaseClient
-                .Child("NewRegistrations")
+                .Child("members")
                 .Child(phone)
                 .PutAsync(new { Status = "RegisteredViaRollcall", Date = DateTime.Now });
         }

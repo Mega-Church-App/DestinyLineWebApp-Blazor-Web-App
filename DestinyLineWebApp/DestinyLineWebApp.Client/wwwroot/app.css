@@ -2,6 +2,16 @@
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+
+/* This hides the default browser arrow on the expander so it matches your XAML look */
+details > summary {
+    list-style: none;
+}
+
+    details > summary::-webkit-details-marker {
+        display: none;
+    }
+
 a, .btn-link {
     color: #006bb7;
 }

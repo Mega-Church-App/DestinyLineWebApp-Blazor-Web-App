@@ -6,12 +6,6 @@
 @inject IMemberService MemberService
 @inject NavigationManager Navigation
 
-<style>
-    /* This hides the default browser arrow on the expander so it matches your XAML look */
-    details > summary { list-style: none; }
-    details > summary::-webkit-details-marker { display: none; }
-</style>
-
 <div style="display: flex; flex-direction: column; height: 100vh; background-color: #F5F6FA;">
 
     <div style="flex-grow: 1; overflow-y: auto; padding: 15px 15px 0 15px;">
@@ -31,17 +25,17 @@
                         <summary>
                             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                                 <div style="display: flex; gap: 5px;">
-                                    <span style="font-weight: bold; font-size: 18px; color: #2C3E50;">@member.personalDetails.FirstName</span>
-                                    <span style="font-weight: bold; font-size: 18px; color: #2C3E50;">@member.personalDetails.LastName</span>
+                                    <span style="font-weight: bold; font-size: 18px; color: #2C3E50;">@member?.personalDetails?.FirstName</span>
+                                    <span style="font-weight: bold; font-size: 18px; color: #2C3E50;">@member?.personalDetails?.LastName</span>
                                 </div>
                                 <span style="font-size: 10px; color: #95A5A6; align-self: center;">Tap to view details ⬇️</span>
                             </div>
 
                             <div style="display: flex; gap: 5px; margin-top: 5px; align-items: center;">
                                 <span style="font-size: 12px; color: #7F8C8D;">Joined:</span>
-                                <span style="font-size: 12px; color: #2C3E50;">@(member.personalDetails.DateJoined.ToString("MMM dd, yyyy"))</span>
+                                <span style="font-size: 12px; color: #2C3E50;">@(member?.personalDetails?.DateJoined.ToString("MMM dd, yyyy"))</span>
                                 <span style="color: #BDC3C7; margin: 0 5px;">|</span>
-                                <span style="font-size: 12px; color: #2980B9; font-weight: bold;">@member.contactInfo.Phone</span>
+                                <span style="font-size: 12px; color: #2980B9; font-weight: bold;">@member?.contactInfo??.Phone</span>
                             </div>
                         </summary>
 
@@ -54,64 +48,64 @@
                                 <div style="display: flex; flex-direction: column;">
                                     <span style="font-weight: bold; color: #7F8C8D; font-size: 12px; text-transform: uppercase;">Name</span>
                                     <div style="display: flex; gap: 5px;">
-                                        <span>@member.personalDetails.LastName</span>
-                                        <span>@member.personalDetails.MiddleName</span>
-                                        <span>@member.personalDetails.FirstName</span>
+                                        <span>@member?.personalDetails?.LastName</span>
+                                        <span>@member?.personalDetails?.MiddleName</span>
+                                        <span>@member?.personalDetails?.FirstName</span>
                                         <span style="color: gray;">-</span>
-                                        <span>@member.personalDetails.Gender</span>
+                                        <span>@member?.personalDetails?.Gender</span>
                                     </div>
                                 </div>
 
                                 <div style="display: flex; flex-direction: column;">
                                     <span style="font-weight: bold; color: #7F8C8D; font-size: 12px; text-transform: uppercase;">Personal Details</span>
-                                    <span>DoB: @(member.personalDetails.DateOfBirth.ToString("MMM dd, yyyy"))</span>
-                                    <span>Nationality: @member.personalDetails.Nationality</span>
-                                    <span>Marital Status: @member.personalDetails.MaritalStatus</span>
-                                    <span>Children: @member.personalDetails.NoOfChildren</span>
-                                    <span>Occupation: @member.personalDetails.Occupation</span>
-                                    <span>Student: @member.personalDetails.StudentStatus</span>
-                                    <span>School: @member.personalDetails.SchoolStatus</span>
-                                    <span>House No: @member.personalDetails.HouseNumber</span>
+                                    <span>DoB: @(member?.personalDetails?.DateOfBirth.ToString("MMM dd, yyyy"))</span>
+                                    <span>Nationality: @member?.personalDetails?.Nationality</span>
+                                    <span>Marital Status: @member?.personalDetails?.MaritalStatus</span>
+                                    <span>Children: @member?.personalDetails?.NoOfChildren</span>
+                                    <span>Occupation: @member?.personalDetails?.Occupation</span>
+                                    <span>Student: @member?.personalDetails?.StudentStatus</span>
+                                    <span>School: @member?.personalDetails?.SchoolStatus</span>
+                                    <span>House No: @member?.personalDetails?.HouseNumber</span>
                                 </div>
 
                                 <div style="display: flex; flex-direction: column; gap: 2px;">
                                     <span style="font-weight: bold; color: #7F8C8D; font-size: 12px; text-transform: uppercase;">Contact Info</span>
-                                    <span>Phone Number: @member.contactInfo.Phone</span>
-                                    <span>Email: @member.contactInfo.Email</span>
-                                    <span>Postal Address: @member.contactInfo.PostalAddress</span>
-                                    <span>Location: @member.contactInfo.Location</span>
-                                    <span>Street Name: @member.contactInfo.StreetName</span>
+                                    <span>Phone Number: @member?.contactInfo?.Phone</span>
+                                    <span>Email: @member?.contactInfo?.Email</span>
+                                    <span>Postal Address: @member?.contactInfo?.PostalAddress</span>
+                                    <span>Location: @member?.contactInfo?.Location</span>
+                                    <span>Street Name: @member?.contactInfo?.StreetName</span>
                                 </div>
 
                                 <div style="display: flex; flex-direction: column; gap: 2px;">
                                     <span style="font-weight: bold; color: #7F8C8D; font-size: 12px; text-transform: uppercase;">Emergency Contact</span>
-                                    <span>@member.emergencyContactInfo.EmergencyContactName</span>
-                                    <span>@member.emergencyContactInfo.EmergencyContactRelationship</span>
-                                    <span>@member.emergencyContactInfo.EmergencyContactPhone</span>
+                                    <span>@member?.emergencyContactInfo?.EmergencyContactName</span>
+                                    <span>@member?.emergencyContactInfo?.EmergencyContactRelationship</span>
+                                    <span>@member?.emergencyContactInfo?.EmergencyContactPhone</span>
                                 </div>
 
                                 <div style="display: flex; flex-direction: column; gap: 2px;">
                                     <span style="font-weight: bold; color: #7F8C8D; font-size: 12px; text-transform: uppercase;">Church Background</span>
-                                    <span>Church: @member.churchBackground.PreviousChurchName</span>
-                                    <span>Location: @member.churchBackground.PreviousChurchLocation</span>
-                                    <span>Pastor: @member.churchBackground.PreviousChurchHeadPastor</span>
-                                    <span>Role: @member.churchBackground.PreviousRole</span>
-                                    <span>Reason left: @member.churchBackground.ReasonForLeaving</span>
+                                    <span>Church: @member?.churchBackground?.PreviousChurchName</span>
+                                    <span>Location: @member?.churchBackground?.PreviousChurchLocation</span>
+                                    <span>Pastor: @member?.churchBackground?.PreviousChurchHeadPastor</span>
+                                    <span>Role: @member?.churchBackground?.PreviousRole</span>
+                                    <span>Reason left: @member?.churchBackground?.ReasonForLeaving</span>
                                 </div>
 
                                 <div style="display: flex; flex-direction: column; gap: 2px;">
                                     <span style="font-weight: bold; color: #7F8C8D; font-size: 12px; text-transform: uppercase;">Baptism Info</span>
-                                    <span>Baptized: @member.baptismInfo.IsBaptized</span>
-                                    <span>Church: @member.baptismInfo.Church</span>
-                                    <span>Was Baptized in @member.baptismInfo.Year</span>
-                                    <span>Wants Baptism: @member.baptismInfo.Baptize</span>
+                                    <span>Baptized: @member?.baptismInfo?.IsBaptized</span>
+                                    <span>Church: @member?.baptismInfo?.Church</span>
+                                    <span>Was Baptized in @member?.baptismInfo?.Year</span>
+                                    <span>Wants Baptism: @member?.baptismInfo?.Baptize</span>
                                 </div>
 
                                 <div style="display: flex; flex-direction: column; gap: 2px;">
                                     <span style="font-weight: bold; color: #7F8C8D; font-size: 12px; text-transform: uppercase;">Department Info</span>
-                                    <span>Member: @member.departmentInfo.IsDepartmentMember</span>
-                                    <span>Current Dept: @member.departmentInfo.DepartmentName</span>
-                                    <span>Departments Interested In Joining: @member.departmentInfo.InterestedDepartments</span>
+                                    <span>Member: @member?.departmentInfo?.IsDepartmentMember</span>
+                                    <span>Current Dept: @member?.departmentInfo?.DepartmentName</span>
+                                    <span>Departments Interested In Joining: @member?.departmentInfo?.InterestedDepartments</span>
                                 </div>
 
                             </div>
@@ -131,17 +125,15 @@
 </div>
 
 @code {
-    private List<Member> Members;
+    private List<Member>? Members;
 
     protected override async Task OnInitializedAsync()
     {
-        // Fetches the data from your Firebase service when the page loads
         Members = await MemberService.GetMembersList();
     }
 
     private void NavigateToAddMember()
     {
-        // Triggers the navigation command to go to your AddMember page
-        Navigation.NavigateTo("/register"); // Update this URL if your AddMember page has a different @page route
+        Navigation.NavigateTo("/register");
     }
 }
