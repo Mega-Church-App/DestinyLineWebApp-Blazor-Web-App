@@ -77,121 +77,129 @@ h1:focus {
     text-align: start;
 }
 
-/*attendance App*/
-.attendance-nav {
-    border-radius: 15px;
-    background-color: black;
-    color: goldenrod;
-    padding: 5px 10px;
-    font-size: 5px;
-    text-align: center;
-}
-
-.attendance-mdiv {
-    padding: 2px;
-}
-
-.attendance-form-group {
-    max-width: 500px;
-    margin: 0 auto 30px auto;
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.attendance-form-div {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.attendance-submit-btn {
-    width: 100%;
-    padding: 12px;
-    background: #27ae60;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.navbar-head {
+    color:darkgoldenrod;
+    font-size: 1rem;
     font-weight: bold;
 }
-
-.attendance-table {
-    width: 100%;
-    border-collapse: collapse;
+.navbar-head:hover {
+    color: goldenrod;
 }
-
-.attendance-th {
-    padding: 10px;
-    border: 1px solid #ddd;
-}
-
-.attendance-tr {
-    background-color: #ecf0f1;
-}
-
-.attendance-td {
-    padding: 10px;
-    border: 1px solid #ddd
-}
-
-.toast {
-    visibility: hidden;
-    min-width: 250px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 5px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    bottom: 30px;
-    transform: translateX(-50%);
-    font-size: 17px;
-}
-
-    .toast.show {
-        visibility: visible;
-        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    /*attendance App*/
+    .attendance-nav {
+        border-radius: 15px;
+        background-color: black;
+        color: goldenrod;
+        padding: 5px 10px;
+        font-size: 5px;
+        text-align: center;
     }
 
-    .toast.error {
-        background-color: #e74c3c;
+    .attendance-mdiv {
+        padding: 2px;
     }
 
-    .toast.flashy {
-        background-color: #f1c40f;
-        color: #2c3e50;
+    .attendance-form-group {
+        max-width: 500px;
+        margin: 0 auto 30px auto;
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .attendance-form-div {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .attendance-submit-btn {
+        width: 100%;
+        padding: 12px;
+        background: #27ae60;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
         font-weight: bold;
     }
 
-.first-timer-row {
-    background-color: #fff9c4;
-}
-
-@-webkit-keyframes fadein {
-    from {
-        bottom: 0;
-        opacity: 0;
+    .attendance-table {
+        width: 100%;
+        border-collapse: collapse;
     }
 
-    to {
+    .attendance-th {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .attendance-tr {
+        background-color: #ecf0f1;
+    }
+
+    .attendance-td {
+        padding: 10px;
+        border: 1px solid #ddd
+    }
+
+    .toast {
+        visibility: hidden;
+        min-width: 250px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 16px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
         bottom: 30px;
-        opacity: 1;
-    }
-}
-
-@keyframes fadein {
-    from {
-        bottom: 0;
-        opacity: 0;
+        transform: translateX(-50%);
+        font-size: 17px;
     }
 
-    to {
-        bottom: 30px;
-        opacity: 1;
+        .toast.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        .toast.error {
+            background-color: #e74c3c;
+        }
+
+        .toast.flashy {
+            background-color: #f1c40f;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+    .first-timer-row {
+        background-color: #fff9c4;
     }
-}
+
+    @-webkit-keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 30px;
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 30px;
+            opacity: 1;
+        }
+    }
