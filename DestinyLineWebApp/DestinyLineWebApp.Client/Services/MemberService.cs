@@ -88,30 +88,6 @@ namespace DestinyLineWebApp.Client.Services
             catch (Exception) { return 0; }
         }
 
-        public async Task SaveAttendance(Attendee attendee)
-        {
-            await _firebaseClient
-                .Child("attendees")
-                .PostAsync(attendee);
-        }
-
-        public async Task<List<Attendee>> GetAttendanceList()
-        {
-            var data = await _firebaseClient
-                .Child("attendees")
-                .OnceAsync<Attendee>();
-
-            return data.Select(item => new Attendee
-            {
-                FullName = item.Object.FullName,
-                Phone = item.Object.Phone,
-                Location = item.Object.Location,
-                Timestamp = item.Object.Timestamp,
-                IsFirstTimer = item.Object.IsFirstTimer
-            }).ToList();
-        }
-
-
         public async Task<bool> CheckIfMemberExists(string phone)
         {
             // Searches the "Members" node for any member with a matching phone number
@@ -125,7 +101,7 @@ namespace DestinyLineWebApp.Client.Services
         public async Task MarkAsMember(string phone)
         {
             await _firebaseClient
-                .Child("members")
+                .Child("Members")
                 .Child(phone)
                 .PutAsync(new { Status = "RegisteredViaRollcall", Date = DateTime.Now });
         }

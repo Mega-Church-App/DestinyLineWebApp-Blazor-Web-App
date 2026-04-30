@@ -2,7 +2,9 @@
 @rendermode InteractiveWebAssembly
 @using DestinyLineWebApp.Client.Models
 @using DestinyLineWebApp.Client.Services
+@using static DestinyLineWebApp.Client.Models.MemberRecord
 
+@inject IAttendeeService AttendeeService
 @inject IMemberService MemberService
 
 <nav class="attendance-nav">
@@ -89,7 +91,7 @@
 
     private async Task LoadAttendees()
     {
-        Attendees = await MemberService.GetAttendanceList();
+        Attendees = await AttendeeService.GetAttendanceList();
     }
 
     private async Task HandleSubmit()
@@ -108,13 +110,13 @@
         if (existsAsMember)
         {
             CurrentAttendee.IsFirstTimer = false;
-            await MemberService.SaveAttendance(CurrentAttendee);
+            await AttendeeService.SaveAttendance(CurrentAttendee);
             ShowToast($"Welcome to <span>DestinyLine</span>, {CurrentAttendee.FullName}🎉!");
         }
         else
         {
             CurrentAttendee.IsFirstTimer = true;
-            await MemberService.SaveAttendance(CurrentAttendee);
+            await AttendeeService.SaveAttendance(CurrentAttendee);
             // In your JS logic, first timers are also marked as members
             await MemberService.MarkAsMember(CurrentAttendee.Phone);
             ShowToast($"🥳🙌🎉Welcome to <span>DestinyLine</span>, {CurrentAttendee.FullName}🥳🙌🎉!", "flashy");

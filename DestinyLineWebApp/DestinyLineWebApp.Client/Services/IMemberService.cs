@@ -2,15 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static DestinyLineWebApp.Client.Pages.Attandance;
 
 namespace DestinyLineWebApp.Client.Services
 {
     public interface IMemberService
     {
-        //Attendees
-        Task SaveAttendance(Attendee attendee);
-        Task<List<Attendee>> GetAttendanceList();
 
         //Attendees Duplicate Verification
         Task<bool> CheckIfMemberExists(string phone);

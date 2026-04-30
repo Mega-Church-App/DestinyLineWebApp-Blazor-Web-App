@@ -57,8 +57,8 @@ namespace DestinyLineWebApp.Client.Models
         public record DepartmentInfo
         {
             public string IsDepartmentMember { get; set; } = string.Empty;
-            public string? DepartmentName { get; set; }
-            public string? InterestedDepartments { get; set; }
+            public string DepartmentName { get; set; } = string.Empty;
+            public string InterestedDepartments { get; set; } = string.Empty;
         }
     }
 }
