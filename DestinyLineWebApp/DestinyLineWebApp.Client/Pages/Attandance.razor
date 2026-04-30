@@ -5,8 +5,6 @@
 
 @inject IMemberService MemberService
 
-<PageTitle>Service Attendance</PageTitle>
-
 <nav class="attendance-nav">
     <h1>Service Attendance (@(Attendees?.Count ?? 0))</h1>
 </nav>
@@ -16,7 +14,7 @@
         @((MarkupString)ToastMessage)
     </div>
 
-    <section class="form-section attendance-form-group">
+    <section class="attendance-form-group">
         <EditForm Model="@CurrentAttendee" OnValidSubmit="HandleSubmit" FormName="attendanceForm">
             <div class="attendance-form-div">
                 <div>
@@ -40,7 +38,7 @@
                     </label>
                 </div>
 
-                <div class="button-container">
+                <div>
                     <button class="attendance-submit-btn" type="submit">
                         SAVE INPUT
                     </button>
@@ -49,8 +47,8 @@
         </EditForm>
     </section>
 
-    <section class="list-section">
-        <table class="table attendance-table">
+    <section>
+        <table class="attendance-table">
             <thead>
                 <tr class="attendance-tr">
                     <th class="attendance-th">Full Name</th>
